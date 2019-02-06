@@ -4,6 +4,8 @@ import { Surveys } from '../api/surveys.js';
 
 import { Answers } from '../api/answers.js';
 
+import { Scores } from '../api/scores.js';
+
 import './getscore.html';
 
 Template.body.events({
@@ -37,5 +39,14 @@ Template.body.events({
     // Calculate score as decimal from 0-1
     const score = counter/questions.length;
     target.score.value = score;
+
+    // Store score to Scores database
+    const scoreId = Scores.insert({
+      userId1:userId1,
+      userId2:userId2,
+      surveyId:surveyId,
+      score:score
+    });
+    target.scoreId.value = scoreId;
   },
 });
